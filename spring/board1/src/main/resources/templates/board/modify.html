@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+  <th:block th:fragment="content">
+    <h1 class="mt-4">
+      게시물 수정
+    </h1>
+    <form action="/board/modify" method="post" id="form">
+<!--      화면에 보이지는 않지만 form데이터를 전송할 때 서버에게 전달된다.-->
+      <input type="hidden" name="page" th:value="${requestDTO.page}"/>
+    <div class="form-group">
+      <label>글번호</label>
+      <input type="text" class="form-control" name="bno" th:value="${dto.bno}" readonly="readonly"/></dlv>
+      <div class="form-group">
+      <label>제목</label>
+        <input type="text" class="form-control" name="bno" th:value="${dto.bno}" /></div>
+        <div class="form-group">
+        <label>내용</label>
+          <textarea class="form-group" row="5" name="content">[[${dto.content}]]</textarea></div>
+        <div class="form-group">
+          <label>작성일</label>
+            <input type="text" class="form-control"  th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd')}" readonly="readonly"/>
+          </div>
+        <div class="form-group">
+            <label>수정일</label>
+            <input type="text" class="form-control"  th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd')}" readonly="readonly"/>
+        </div>
+      </div>
+    </form>
+      <a th:href="@{/board/list(page=${requestDTO.page})}">
+        <button type="button" class="btn btn-info">목록</button>
+
+      </a>
+        <button type="button" class="btn btn-primary" id="modifyBtn">수정</button>
+
+
+      <button type="button" class="btn btn-warning" id="removeBtn">삭제</button>
+    <script th:inline="javascript">
+      //form 찾아오기
+      let actionForm = document.getElementById("form");
+      document.getElementById("modifyBtn").addEventListener("click", (e) =>{
+        //메시지를 출력하고 아니오를 선택하면 리턴
+        if(!confirm("수정하시겠습니까?")){
+          return
+        }
+        //form의 데이터 전송
+        actionForm.action="/board/modify";
+        actionForm.method="post";
+        actionForm.submit();
+      });
+
+      document.getElementById("removeBtn").addEventListener(
+          'click', (e) => {
+              if(!confirm("삭제하시겠습니까?")){
+                  return;
+              }
+              actionForm.action="/board/remove";
+              actionForm.method="post";
+              actionForm.submit();
+          });
+
+
+    </script>
+  </th:block>
+</th:block>
