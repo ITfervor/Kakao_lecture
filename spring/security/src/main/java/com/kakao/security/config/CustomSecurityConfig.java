@@ -1,5 +1,7 @@
 package com.kakao.security.config;
 
+import com.kakao.security.security.CustomUserDetailService;
+import com.kakao.security.security.handler.Custom403Handler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -12,7 +14,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.thymeleaf.context.IWebContext;
+
+import javax.sql.DataSource;
 
 @Configuration
 @Log4j2
@@ -20,12 +27,39 @@ import org.thymeleaf.context.IWebContext;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CustomSecurityConfig {
 
+    private final DataSource dataSource; //
+    private final CustomUserDetailService userDetailService; //
+
+    @Bean //
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
+        repo.setDataSource(dataSource);
+        return repo;
+    }
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler(){
+        return new Custom403Handler();
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("필터환경 설정");
         //인증이나 인가에 문제가 발생하면 로그인 폼 출력
         http.formLogin().loginPage("/member/login");
+        //Oauth2가 사용할 로그인 URL설정
+        http.oauth2Login().loginPage("/mamber/login");
+        http.csrf().disable();
+
+        http.rememberMe() //remember me
+                .key("12345678")
+                .tokenRepository(persistentTokenRepository())
+                .userDetailsService(userDetailService)
+                .tokenValiditySeconds(60*60*24*30);
+
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+
         return http.build();
+
 
     }
 
