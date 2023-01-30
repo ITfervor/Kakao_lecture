@@ -94,7 +94,7 @@ public class RepositoryTest {
     //Board 테이터를 가져올 떄 Writer데이터도 가져오기
     @Test
     public void joinTest1(){
-        Object result = boardRepository.getBoardWithwWriter(100L);
+        Object result = boardRepository.getBoardWithWriter(100L);
         //결과가 배열인거 같아서
         System.out.println(result);
         Object [] ar = (Object []) result;

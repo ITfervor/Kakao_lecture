@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+//Controller는 뷰로부터 오는 HTTP요청을 처리하는 역할을 한다.
 @Controller
 @Log4j2
 @RequiredArgsConstructor
@@ -29,9 +30,9 @@ public class BoardController {
                 boardService.getList(pageRequestDTO));
         return "board/list";
     }
+
     //게시물 등록 화면으로 이동하는 요청 - Forwarding - 요청을 종료한 후 다시 서버로 요청
     //RedirectAttributes - 1회용 세션 (한번만 사용한다는 말) redirect- 요청을 종료한 후 화면만 refresh
-
     @GetMapping("/board/register")
     public void register(RedirectAttributes rattr){
             log.info("등록화면을 포워딩");
@@ -51,6 +52,7 @@ public class BoardController {
     }
     //ModelAttribute는 파라미터로 사용하면 넘겨받은 데이터를
     //결과에 그대로 전달할 목적으로 사용
+    //글 상세보기
     @GetMapping({"/board/read", "/board/modify"})
     public void read(
             @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO,
@@ -64,6 +66,7 @@ public class BoardController {
     public String modify(BoardDTO dto,
                          @ModelAttribute("requestDTO") PageRequestDTO requestDTO,
                          RedirectAttributes redirectAttributes){
+        //dto.toString(dto값을 전체 출력한다.)
         log.info("dto:" + dto.toString());
 
         //수정

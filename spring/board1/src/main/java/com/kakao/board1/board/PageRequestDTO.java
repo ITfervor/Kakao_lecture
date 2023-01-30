@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 @AllArgsConstructor
 public class PageRequestDTO {
     //페이지 처리를 위한 속성
-
     private int page;
     private int size;
 

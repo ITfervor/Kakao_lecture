@@ -6,6 +6,7 @@ import com.kakao.board1.domain.Board;
 import com.kakao.board1.domain.Member;
 import com.kakao.board1.board.BoardDTO;
 
+//Service패키지는 DB와 상호작용하는 비즈니스 로직을 수행하는 Class파일들이 모여져 있다.
 public interface BoardService {
    //게시글 등록 요청
      Long register(BoardDTO dto);

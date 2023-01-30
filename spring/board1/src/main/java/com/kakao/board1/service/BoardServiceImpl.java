@@ -23,7 +23,7 @@ import java.util.function.Function;
 public class BoardServiceImpl implements BoardService {
     //final: 읽기 전용이므로 밑의 구문은 메서드를 구현하는 구문이다.
     // static이 있다면 객체를 공유하겠다는 뜻으로 재할당이 가능하지만
-    // static이 없다면 재할당이 불가능하지만 메서드 별로 호출할 때마다 새로이 값이 할당한다.
+    // static이 없다면 재할당이 불가능하지만 메서드 별로 호출할 때마다 새로이 값을 할당한다.
     private final BoardRepository boardRepository;
 
     @Transactional
