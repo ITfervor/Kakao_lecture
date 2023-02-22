@@ -21,8 +21,6 @@ import java.util.Optional;
 @Controller
 @Slf4j // 로깅을 위한 어노테이션
 public class ArticleController {
-
-
     @Autowired
     private ArticleRepository articleRepository;
     @GetMapping("/articles/new")
