@@ -19,4 +19,9 @@ public class FirstController {
         model.addAttribute("nickname","정엽");
         return "byebye";
     }
+    @GetMapping("/bye")
+    public String Goodye(Model model){
+        model.addAttribute("nickname","정엽");
+        return "byebye";
+    }
 }
