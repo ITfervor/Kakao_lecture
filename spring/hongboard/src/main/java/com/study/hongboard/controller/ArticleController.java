@@ -2,9 +2,13 @@ package com.study.hongboard.controller;
 
 
 import com.study.hongboard.dto.ArticleForm;
+import com.study.hongboard.dto.CommentDto;
 import com.study.hongboard.entity.Article;
+import com.study.hongboard.entity.Comment;
 import com.study.hongboard.repository.ArticleRepository;
 //import com.study.hongboard.repository.ArticleRepositoryContent;
+import com.study.hongboard.repository.CommentRepository;
+import com.study.hongboard.service.CommentService;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,10 @@ import java.util.Optional;
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CommentService commentService;
+
     @GetMapping("/articles/new")
     public String newArticleForm() {
         return "articles/new";
@@ -51,9 +59,12 @@ public class ArticleController {
 
         // 1: id로 데이터를 가져옴!
         Article articleEntity = articleRepository.findById(id).orElse(null); //orElse() -> 값이 없으면 null 값
+        List<CommentDto> commentDtos = commentService.comments(id);
+
 
         // 2: 가져온 데이터를 모델에 등록
         model.addAttribute("article", articleEntity);
+        model.addAttribute("commentDto", commentDtos);
 
         // 3: 보여줄 페이지 생성
         return "articles/show";
