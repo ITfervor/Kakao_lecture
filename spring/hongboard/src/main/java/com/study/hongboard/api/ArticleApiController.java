@@ -4,6 +4,7 @@ import com.study.hongboard.dto.ArticleForm;
 import com.study.hongboard.entity.Article;
 import com.study.hongboard.repository.ArticleRepository;
 import com.study.hongboard.service.ArticleService;
+import com.study.hongboard.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
@@ -18,6 +19,9 @@ import java.util.List;
 public class ArticleApiController {
     @Autowired //DI
     private ArticleService articleService;
+
+
+
 
 
 //

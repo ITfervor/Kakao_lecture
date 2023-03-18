@@ -2,6 +2,7 @@ package com.study.hongboard.dto;
 
 import com.study.hongboard.entity.Article;
 import lombok.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @AllArgsConstructor

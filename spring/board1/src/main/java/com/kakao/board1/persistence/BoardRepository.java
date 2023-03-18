@@ -1,12 +1,9 @@
 package com.kakao.board1.persistence;
 
 import com.kakao.board1.domain.Board;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
+
+import java.awt.print.Pageable;
 import java.util.List;
 //Repository패키지는 Entity에 의해 생성된 DB에 접근하는 메서드들을 사용하기 위한 interface파일들이 모여있는 패키지이다.
 //보통 JpaRepository를 상속 받음으로써 기본적인 CRUD동작이 모두 가능해진다.
